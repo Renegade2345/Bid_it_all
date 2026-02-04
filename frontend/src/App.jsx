@@ -24,7 +24,7 @@ function App() {
   /* ========= Fetch Items ========= */
 
   useEffect(() => {
-    fetch("http://localhost:4000/items")
+    fetch("https://bidding-wars-evvz.onrender.com/items")
       .then(res => res.json())
       .then(data => {
         setItems(data);
@@ -155,7 +155,7 @@ function App() {
       <div className="bg-blob blob3"></div>
 
       <nav className="navbar">
-        <div className="logo">🔥 Live Auction</div>
+        <div className="logo"> Live Auction</div>
         <div className="user">👤 {USER_ID}</div>
       </nav>
 
