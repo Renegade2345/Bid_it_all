@@ -19,14 +19,14 @@ const items = [
     title: "MacBook Pro M3",
     startingPrice: 1200,
     currentBid: 1200,
-    auctionEndTime: Date.now() + 5 * 60 * 1000 // 5 minutes
+    auctionEndTime: Date.now() + 60 * 60 * 1000 
   },
   {
     id: uuidv4(),
     title: "iPhone 15 Pro",
     startingPrice: 900,
     currentBid: 900,
-    auctionEndTime: Date.now() + 8 * 60 * 1000
+    auctionEndTime: Date.now() + 60 * 60 * 1000
   }
 ];
 
