@@ -1,7 +1,19 @@
-import { io } from "socket.io-client";
+import { createClient } from "redis";
 
-const socket = io("https://bidding-wars-evvz.onrender.com", {
-  transports: ["websocket"]
+const redisClient = createClient({
+  url: process.env.REDIS_URL
 });
 
-export default socket;
+redisClient.on("error", (err) => {
+  console.error("❌ Redis error:", err);
+});
+
+async function connectRedis() {
+  if (!redisClient.isOpen) {
+    await redisClient.connect();
+    console.log("✅ Connected to Redis");
+  }
+}
+
+export { connectRedis };
+export default redisClient;
