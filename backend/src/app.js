@@ -11,7 +11,6 @@ app.use(express.json());
 await connectRedis();
 
 
-
 async function seedAuctions() {
   const existing = await redisClient.keys("item:*");
 
@@ -47,7 +46,6 @@ async function seedAuctions() {
 }
 
 await seedAuctions();
-
 
 
 app.get("/items", async (req, res) => {
