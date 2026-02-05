@@ -3,8 +3,12 @@ import { processBid } from "./services/bidService.js";
 import http from "http";
 import { Server } from "socket.io";
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT;
 
+
+httpServer.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 const httpServer = http.createServer(app);
 
 const io = new Server(httpServer, {
