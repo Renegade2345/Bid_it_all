@@ -1,6 +1,8 @@
 const items = new Map()
 
 function initItems() {
+  if (items.size > 0) return
+
   const now = Date.now()
 
   const sample = [
@@ -10,7 +12,7 @@ function initItems() {
       startingPrice: 1000,
       currentBid: 1000,
       highestBidder: null,
-      endsAt: now + 2 * 60 * 1000,
+      endsAt: now + 60 * 60 * 1000,
       isActive: true
     },
     {
@@ -19,13 +21,14 @@ function initItems() {
       startingPrice: 500,
       currentBid: 500,
       highestBidder: null,
-      endsAt: now + 10 * 60 * 1000,
+      endsAt: now + 60 * 60 * 1000,
       isActive: true
     }
   ]
 
   sample.forEach(item => items.set(item.id, item))
 }
+
 
 function getItems() {
   return Array.from(items.values())

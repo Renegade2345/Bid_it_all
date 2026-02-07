@@ -8,6 +8,17 @@ function App() {
   const [serverOffset, setServerOffset] = useState(0)
   const [socketId, setSocketId] = useState(null)
 
+
+// Countdown re-render
+  useEffect(() => {
+  const interval = setInterval(() => {
+    setItems(prev => [...prev])
+  }, 1000)
+
+  return () => clearInterval(interval)
+}, [])
+
+
   useEffect(() => {
     // Fetch items
     fetch("http://localhost:3000/items")
