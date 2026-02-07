@@ -19,6 +19,20 @@ const PORT = process.env.PORT || 3000
 
 initItems()
 
+const scheduleAuctionEnd = (item) => {
+  const delay = item.endsAt - Date.now()
+
+  if (delay <= 0) return
+
+  setTimeout(() => {
+    item.isActive = false
+    io.to(item.id).emit("AUCTION_ENDED", item)
+  }, delay)
+}
+
+getItems().forEach(scheduleAuctionEnd)
+
+
 // REST
 app.get("/items", (req, res) => {
   res.json({

@@ -32,6 +32,17 @@ function App() {
       setSocketId(socket.id)
     })
 
+    socket.on("AUCTION_ENDED", (item) => {
+  setItems(prev =>
+    prev.map(i =>
+      i.id === item.id ? item : i
+    )
+  )
+})
+
+
+
+
     socket.on("UPDATE_BID", (updatedItem) => {
       setItems(prev =>
         prev.map(item =>
@@ -47,15 +58,18 @@ function App() {
     return () => {
       socket.off("UPDATE_BID")
       socket.off("BID_ERROR")
+       socket.off("AUCTION_ENDED")
     }
   }, [])
 
-  const placeBid = (item) => {
-    socket.emit("BID_PLACED", {
-      itemId: item.id,
-      amount: item.currentBid + 10
-    })
-  }
+const placeBid = (item) => {
+  if (!item.isActive) return
+
+  socket.emit("BID_PLACED", {
+    itemId: item.id,
+    amount: item.currentBid + 10
+  })
+}
 
   const getRemainingTime = (endsAt) => {
     const remaining = endsAt - (Date.now() + serverOffset)
@@ -87,9 +101,12 @@ function App() {
 
               {isWinning && <p style={{ color: "green" }}>Winning</p>}
 
-              <button onClick={() => placeBid(item)}>
-                Bid +$10
-              </button>
+              <button disabled={remaining === 0 || !item.isActive}
+  onClick={() => placeBid(item)}
+>
+  Bid +$10
+</button>
+
             </div>
           )
         })}
